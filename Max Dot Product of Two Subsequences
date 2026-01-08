@@ -1,0 +1,29 @@
+class Solution {
+    public int maxDotProduct(int[] nums1, int[] nums2) {
+        // find the length of both the arrays
+        int m = nums1.length;
+        int n = nums2.length;
+
+        // Initializing a matrix of size (m+1)*(n+1)
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                dp[i][j] = -10000000; // max negative value
+            }
+        }
+
+        // Building dp[m+1][n+1] in bottom-up fashion
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                int product = nums1[i - 1] * nums2[j - 1];
+     
+                dp[i][j] = Math.max(product, Math.max(dp[i - 1][j - 1] + product, Math.max(dp[i - 1][j], dp[i][j - 1])));
+            }
+        }
+
+        // dp[m][n] contains length of LCS for nums1[0..m-1]
+        // and nums2[0..n-1]
+        return dp[m][n];
+    }
+}
