@@ -1,0 +1,12 @@
+class Solution {
+    public int distinctCount(int[] arr) {
+        // code here
+        HashSet<Integer> hs = new HashSet<>();
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]>0){
+                hs.add(arr[i]);
+            }
+        }
+        return hs.size();
+    }
+}
