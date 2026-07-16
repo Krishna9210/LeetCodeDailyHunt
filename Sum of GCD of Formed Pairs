@@ -1,0 +1,23 @@
+class Solution {
+    public long gcdSum(int[] nums) {
+        long returnSum = 0;
+        int prefixGCD [] = new int[nums.length];
+        int max = Integer.MIN_VALUE;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]>max) max = nums[i];
+            prefixGCD[i] = findGCD(max, nums[i]);
+        }
+        Arrays.sort(prefixGCD);
+        int firstPointer = 0, secPointer = prefixGCD.length-1;
+        while(secPointer-firstPointer>=1){
+            returnSum+=(long)findGCD(prefixGCD[firstPointer], prefixGCD[secPointer]);
+            firstPointer++;
+            secPointer--;
+        }
+        return returnSum;
+
+    }
+    public static int findGCD(int a, int b) {
+        return (b == 0) ? Math.abs(a) : findGCD(b, a % b);
+    }
+}
